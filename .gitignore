@@ -1,0 +1,9 @@
+# 忽略敏感的配置文件
+config.yaml
+
+# 忽略所有生成的输出文件
+outputs/
+
+# 忽略Python的缓存文件
+__pycache__/
+*.pyc

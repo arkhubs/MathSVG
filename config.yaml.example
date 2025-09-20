@@ -1,0 +1,32 @@
+# 这是一个示例配置文件。
+# 使用时，请将此文件复制并重命名为 "config.yaml"，然后填入您的个人信息。
+# "config.yaml" 文件已被 .gitignore 排除，不会被提交到版本库中。
+
+# --- LLM Configuration (YAML) ---
+
+# 1. API Key
+# 您的API密钥。这是必须填写的项目。
+# 优先从环境变量 "CUSTOM_API_KEY" 读取。
+api_key: "YOUR_API_KEY_HERE"
+
+# 2. Base URL for the API
+# 您的API服务的基础URL。
+# 优先从环境变量 "CUSTOM_BASE_URL" 读取。
+base_url: "https://api.siliconflow.cn/v1"
+
+# 3. Model Names
+# 多模态模型 (用于几何构建规划师)
+# 优先从环境变量 "CUSTOM_MODEL_NAME" 读取。
+multimodal_model: "Qwen/Qwen2.5-VL-72B-Instruct"
+
+# 纯文本模型 (用于TikZ代码翻译官和审查员)
+# 优先从环境变量 "CUSTOM_TEXT_MODEL_NAME" 读取。
+text_model: "Qwen/Qwen2.5-7B-Instruct"
+
+# 4. Model Temperatures
+# 为不同角色的智能体设置温度。值域 0.0 (最确定) 到 2.0 (最随机)。
+# 如果此部分不存在或被注释掉，系统将使用代码中定义的默认值。
+temperatures:
+  planner_temperature: 0.0    # 规划师需要严谨，建议为 0.0
+  translator_temperature: 0.0 # 翻译官需要精确，建议为 0.0
+  critic_temperature: 0.2     # 审查员可以稍有创造性以提供更好的反馈
