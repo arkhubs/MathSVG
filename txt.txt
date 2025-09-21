@@ -53,4 +53,4 @@ git pull
 
 如果输入图片，应该和原图对比，提出反馈
 
-在矩形ABCD中，E是边的中点，连接DE交对角线AC于点F，且AF垂直于DE，AB=8，AD=6
+在矩形ABCD中，E是边AB的中点，连接DE交对角线AC于点F，且AF垂直于DE，AB=8，AD=6
