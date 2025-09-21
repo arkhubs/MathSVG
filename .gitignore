@@ -7,3 +7,6 @@ outputs/
 # 忽略Python的缓存文件
 __pycache__/
 *.pyc
+
+# 忽略code2prompt
+.code/

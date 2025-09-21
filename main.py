@@ -1,6 +1,8 @@
 # main.py
 import os
+
 from workflow import build_workflow
+from tools.logger import log_message # 新增导入
 
 def main():
     """主函数，运行整个智能体系统"""
@@ -39,24 +41,47 @@ def main():
     print("\n--- Workflow Finished ---")
     
     # 提取并展示最终结果
+
     if final_state:
+        # 新增: 获取日志文件路径
+        log_path = final_state.get("log_file_path", "")
+        final_summary_log = [] # 用于存储日志信息的列表
+
         saved_files = final_state.get("saved_files", [])
         if saved_files:
-            print("\n✅ The following PDF files were successfully generated during the process:")
+            msg = "\n✅ The following PDF files were successfully generated during the process:"
+            print(msg)
+            final_summary_log.append(msg)
             for file_path in saved_files:
                 print(f"- {file_path}")
+                final_summary_log.append(f"- {file_path}")
 
         if final_state.get("critic_feedback") == "APPROVED":
-            print("\n✅ Success! The process was approved on the final attempt.")
+            msg = "\n✅ Success! The process was approved on the final attempt."
+            print(msg)
+            final_summary_log.append(msg)
             latest_pdf = saved_files[-1] if saved_files else "No file"
-            print(f"Final approved file: {latest_pdf}")
+            msg = f"Final approved file: {latest_pdf}"
+            print(msg)
+            final_summary_log.append(msg)
         else:
-            print("\n❌ Failure. The process finished without final approval.")
+            msg = "\n❌ Failure. The process finished without final approval."
+            print(msg)
+            final_summary_log.append(msg)
             feedback = final_state.get('critic_feedback', 'No final feedback.')
-            print(f"Final Feedback from Critic:\n{feedback}")
-            # 最后一个生成的代码，无论成功与否
+            msg = f"Final Feedback from Critic:\n{feedback}"
+            print(msg)
+            final_summary_log.append(msg)
             code = final_state.get('latex_code', 'No final code generated.')
-            print(f"\nLast Generated LaTeX Code:\n{code}")
+            msg = f"\nLast Generated LaTeX Code:\n{code}"
+            print(msg)
+            final_summary_log.append(msg)
+
+        # 新增: 将最终总结写入日志并告知用户
+        if log_path:
+            log_message(log_path, "\n".join(final_summary_log), title="最终总结")
+            print(f"\n📄 A detailed log of this workflow has been saved to: {log_path}")
+
     else:
         print("An unexpected error occurred and the workflow did not complete.")
 
